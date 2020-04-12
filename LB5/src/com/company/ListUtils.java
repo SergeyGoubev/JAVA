@@ -19,15 +19,21 @@ public class ListUtils {
         }
         return p;
     }
+    private static ListElement mapContainer = null;
+
     public static ListElement map(ListElement first) {
-        ListElement p = null;
-        while (first != null) {
+        if(first != null) {
             int value = first.getValue();
-            p = insert(p, value*value*value);
-            first = first.getNext();
+            mapContainer = insert(mapContainer, value*value*value);
+            return map(first.getNext());
         }
-        return p;
+        else {
+            ListElement t = mapContainer;
+            mapContainer = null;
+            return t;
+        }
     }
+
     public static int reduce(ListElement first) {
         int sum = 0;
         while (first != null) {
